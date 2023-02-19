@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace bc.Science;
 
 public record struct SIMeasurement<T> where T : INumber<T>
