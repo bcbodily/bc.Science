@@ -184,6 +184,126 @@ public class SIUnitTests
 
     /// <summary>
     /// Verifies the <see cref="SIMeasurement{T}"/> <c>+</c> operator,
+    /// when the componets of both arguments are the same,
+    /// properly returns a <see cref="SIMeasurement{T}"/>
+    /// for which <see cref="SIMeasurement{T}.Magnitude"/> is equal to the sum of the argument magnitudes
+    /// </summary>
+    /// <param name="magnitude1">the magnitude to assign to the first argument</param>
+    /// <param name="magnitude2">the magnitude to assign to the second argument</param>
+    [TestMethod]
+    [DataRow(1, 2, 3, 4, 5, 6, 7, 1, 3)]
+    [DataRow(7, 6, 5, 4, 3, 2, 1, -2, 9)]
+    public void OPERATOR_ADD__when_components_are_same__then_result_AmountOfSubstanceExponent_is_the_same(
+        int amountOfSubstanceExponent,
+        int electricCurrentExponent,
+        int lengthExponent,
+        int luminousIntensityExponent,
+        int massExponent,
+        int thermodynamicTemperatureExponent,
+        int timeExponent,
+        decimal magnitude1,
+        decimal magnitude2)
+    {
+        var si1 = new SIMeasurement<decimal>
+        {
+            AmountOfSubstanceExponent = amountOfSubstanceExponent,
+            ElectricCurrentExponent = electricCurrentExponent,
+            LengthExponent = lengthExponent,
+            LuminousIntensityExponent = luminousIntensityExponent,
+            MassExponent = massExponent,
+            ThermodynamicTemperatureExponent = thermodynamicTemperatureExponent,
+            TimeExponent = timeExponent,
+            Magnitude = magnitude1
+        };
+
+        var si2 = new SIMeasurement<decimal>
+        {
+            AmountOfSubstanceExponent = amountOfSubstanceExponent,
+            ElectricCurrentExponent = electricCurrentExponent,
+            LengthExponent = lengthExponent,
+            LuminousIntensityExponent = luminousIntensityExponent,
+            MassExponent = massExponent,
+            ThermodynamicTemperatureExponent = thermodynamicTemperatureExponent,
+            TimeExponent = timeExponent,
+            Magnitude = magnitude2
+        };
+
+        Assert.AreEqual(si2.AmountOfSubstanceExponent, si1.AmountOfSubstanceExponent);
+        Assert.AreEqual(si2.ElectricCurrentExponent, si1.ElectricCurrentExponent);
+        Assert.AreEqual(si2.LengthExponent, si1.LengthExponent);
+        Assert.AreEqual(si2.LuminousIntensityExponent, si1.LuminousIntensityExponent);
+        Assert.AreEqual(si2.MassExponent, si1.MassExponent);
+        Assert.AreEqual(si2.ThermodynamicTemperatureExponent, si1.ThermodynamicTemperatureExponent);
+        Assert.AreEqual(si2.TimeExponent, si1.TimeExponent);
+
+        var actual = (si1 + si2).AmountOfSubstanceExponent;
+        var excpected = si1.AmountOfSubstanceExponent;
+
+        Assert.AreEqual(excpected, actual);
+    }
+
+    /// <summary>
+    /// Verifies the <see cref="SIMeasurement{T}"/> <c>+</c> operator,
+    /// when the componets of both arguments are the same,
+    /// properly returns a <see cref="SIMeasurement{T}"/>
+    /// for which <see cref="SIMeasurement{T}.Magnitude"/> is equal to the sum of the argument magnitudes
+    /// </summary>
+    /// <param name="magnitude1">the magnitude to assign to the first argument</param>
+    /// <param name="magnitude2">the magnitude to assign to the second argument</param>
+    [TestMethod]
+    [DataRow(1, 2, 3, 4, 5, 6, 7, 1, 3)]
+    [DataRow(7, 6, 5, 4, 3, 2, 1, -2, 9)]
+    public void OPERATOR_ADD__when_components_are_same__then_result_Magnitude_is_equal_to_sum_of_Magnitudes(
+        int amountOfSubstanceExponent,
+        int electricCurrentExponent,
+        int lengthExponent,
+        int luminousIntensityExponent,
+        int massExponent,
+        int thermodynamicTemperatureExponent,
+        int timeExponent,
+        decimal magnitude1,
+        decimal magnitude2)
+    {
+        var si1 = new SIMeasurement<decimal>
+        {
+            AmountOfSubstanceExponent = amountOfSubstanceExponent,
+            ElectricCurrentExponent = electricCurrentExponent,
+            LengthExponent = lengthExponent,
+            LuminousIntensityExponent = luminousIntensityExponent,
+            MassExponent = massExponent,
+            ThermodynamicTemperatureExponent = thermodynamicTemperatureExponent,
+            TimeExponent = timeExponent,
+            Magnitude = magnitude1
+        };
+
+        var si2 = new SIMeasurement<decimal>
+        {
+            AmountOfSubstanceExponent = amountOfSubstanceExponent,
+            ElectricCurrentExponent = electricCurrentExponent,
+            LengthExponent = lengthExponent,
+            LuminousIntensityExponent = luminousIntensityExponent,
+            MassExponent = massExponent,
+            ThermodynamicTemperatureExponent = thermodynamicTemperatureExponent,
+            TimeExponent = timeExponent,
+            Magnitude = magnitude2
+        };
+
+        Assert.AreEqual(si2.AmountOfSubstanceExponent, si1.AmountOfSubstanceExponent);
+        Assert.AreEqual(si2.ElectricCurrentExponent, si1.ElectricCurrentExponent);
+        Assert.AreEqual(si2.LengthExponent, si1.LengthExponent);
+        Assert.AreEqual(si2.LuminousIntensityExponent, si1.LuminousIntensityExponent);
+        Assert.AreEqual(si2.MassExponent, si1.MassExponent);
+        Assert.AreEqual(si2.ThermodynamicTemperatureExponent, si1.ThermodynamicTemperatureExponent);
+        Assert.AreEqual(si2.TimeExponent, si1.TimeExponent);
+
+        var actual = (si1 + si2).Magnitude;
+        var excpected = magnitude1 + magnitude2;
+
+        Assert.AreEqual(excpected, actual);
+    }
+
+    /// <summary>
+    /// Verifies the <see cref="SIMeasurement{T}"/> <c>+</c> operator,
     /// when the <see cref="SIMeasurement{T}.AmountOfSubstanceExponent"/> values for the addends are not equal,
     /// properly throws <see cref="InvalidOperationException"/>
     /// </summary>
