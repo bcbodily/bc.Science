@@ -201,8 +201,8 @@ public class SIUnitTests
         int massExponent,
         int thermodynamicTemperatureExponent,
         int timeExponent,
-        decimal magnitude1,
-        decimal magnitude2)
+        int magnitude1,
+        int magnitude2)
     {
         var si1 = new SIMeasurement<decimal>
         {
@@ -261,8 +261,8 @@ public class SIUnitTests
         int massExponent,
         int thermodynamicTemperatureExponent,
         int timeExponent,
-        decimal magnitude1,
-        decimal magnitude2)
+        int magnitude1,
+        int magnitude2)
     {
         var si1 = new SIMeasurement<decimal>
         {
@@ -581,6 +581,48 @@ public class SIUnitTests
         var expected = exponent1 + exponent2;
 
         Assert.AreEqual(expected, acutal);
+    }
+
+    /// <summary>
+    /// Verifies the <see cref="SIMeasurement{T}"/> <c>*</c> operator
+    /// properly returns a result for which the value of <see cref="SIMeasurement{T}.Magnitude"/>
+    /// is equal to the product of the <see cref="SIMeasurement{T}.Magnitude"/> values of the operands
+    /// </summary>
+    /// <param name="magnitude1">the test value to assigned to the first <see cref="SIMeasurement{T}.Magnitude"/> value</param>
+    /// <param name="magnitude2">the test value to assigned to the second <see cref="SIMeasurement{T}.Magnitude"/> value</param>
+    [DataTestMethod]
+    [DataRow(2.0, 3.0)]
+    [DataRow(3.0, 2.0)]
+    public void OPERATOR_MULTIPLY__result_Magnitude_is_equal_to_product_of_Magnitudes(double magnitude1, double magnitude2)
+    {
+        var si1 = new SIMeasurement<double>
+        {
+            AmountOfSubstanceExponent = 1,
+            ElectricCurrentExponent = 2,
+            LengthExponent = 3,
+            LuminousIntensityExponent = 4,
+            MassExponent = 5,
+            ThermodynamicTemperatureExponent = 6,
+            TimeExponent = 7,
+            Magnitude = magnitude1
+        };
+
+        var si2 = new SIMeasurement<double>
+        {
+            AmountOfSubstanceExponent = 2,
+            ElectricCurrentExponent = 3,
+            LengthExponent = 4,
+            LuminousIntensityExponent = 5,
+            MassExponent = 6,
+            ThermodynamicTemperatureExponent = 7,
+            TimeExponent = 8,
+            Magnitude = magnitude2
+        };
+
+        var actual = (si1 * si2).Magnitude;
+        var excpected = magnitude1 * magnitude2;
+
+        Assert.AreEqual(excpected, actual);
     }
 
     /// <summary>

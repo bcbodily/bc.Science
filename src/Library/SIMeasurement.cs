@@ -2,7 +2,7 @@ using System.Numerics;
 
 namespace bc.Science;
 
-public record struct SIMeasurement<T> where T : INumber<T>
+public readonly record struct SIMeasurement<T> where T : INumber<T>
 {
     /// <summary>
     /// The amount of substance exponent of this value
@@ -71,6 +71,19 @@ public record struct SIMeasurement<T> where T : INumber<T>
 
 
         return lhs with { Magnitude = lhs.Magnitude + rhs.Magnitude };
+    }
+
+    public static SIMeasurement<T> operator -(SIMeasurement<T> lhs, SIMeasurement<T> rhs)
+    {
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.AmountOfSubstanceExponent, rhs.AmountOfSubstanceExponent, nameof(AmountOfSubstanceExponent));
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.ElectricCurrentExponent, rhs.ElectricCurrentExponent, nameof(ElectricCurrentExponent));
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.LengthExponent, rhs.LengthExponent, nameof(LengthExponent));
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.LuminousIntensityExponent, rhs.LuminousIntensityExponent, nameof(LuminousIntensityExponent));
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.MassExponent, rhs.MassExponent, nameof(MassExponent));
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.ThermodynamicTemperatureExponent, rhs.ThermodynamicTemperatureExponent, nameof(ThermodynamicTemperatureExponent));
+        ThrowIllegalOperationExceptionIfValuesAreDifferent(lhs.TimeExponent, rhs.TimeExponent, nameof(TimeExponent));
+
+        return lhs with { Magnitude = lhs.Magnitude - rhs.Magnitude };
     }
 
     public static SIMeasurement<T> operator *(SIMeasurement<T> lhs, SIMeasurement<T> rhs)
